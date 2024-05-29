@@ -1,0 +1,35 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+// DBのカラムにすでにデータがあるときにschema.prismaに記載されているカラムを削除しマイグレーションすると「Are you sure you want to create and apply this migration?」と警告が表示される。Noを選択するとキャンセルされ、DBはそのままになる。
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Comment {
+  id Int @default(autoincrement()) @id
+  title String
+  comment String
+  member Member? @relation(fields: [memberId], references: [id])
+  memberId Int?
+  createdAt DateTime @default(now())
+}
+
+model Member {
+  id Int @default(autoincrement()) @id
+  name String
+  email String @unique
+  age Int
+  comments Comment[]
+  password String
+  createdAt DateTime @default(now())
+}
