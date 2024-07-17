@@ -1,7 +1,7 @@
 'use client'
 import React, { useState, useEffect, useRef, RefObject, createRef } from 'react'
-
 import { MemberType } from "../type/Member"
+import Button from './Button'
 import dayjs from "dayjs"
 import utc from "dayjs/plugin/utc"
 import timezone from "dayjs/plugin/timezone"
@@ -13,11 +13,11 @@ dayjs.tz.setDefault("Asia/Tokyo")
 interface MemberList {
   member: MemberType[]
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
-  onClick: (event: MemberType) => void
+  onEdit: (event: MemberType) => void
+  onDelete: (event: MemberType) => void
 }
 
-const TableMemberList: React.FC<MemberList> = ({ member, onChange, onClick }) => {
-  
+const TableMemberList: React.FC<MemberList> = React.memo(({ member, onChange, onEdit, onDelete }) => {
   const memberRefs = useRef<RefObject<HTMLInputElement>[]>([])
   member.forEach((_, i) => {
     memberRefs.current[i] = createRef<HTMLInputElement>()
@@ -67,17 +67,17 @@ const TableMemberList: React.FC<MemberList> = ({ member, onChange, onClick }) =>
                 </span>
               </div>
             </th>
-            <th scope="col" className="px-6 py-3 text-start">
+            <th scope="col" className="w-1/5 px-6 py-3 text-start">
               <div className="flex items-center gap-x-2">
                 <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-neutral-200">
                   Created
                 </span>
               </div>
             </th>
-            <th scope="col" className="px-6 py-3 text-end"></th>
+            <th scope="col" className="w-1/6 pe-6 py-3 text-end"></th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+        <tbody className="w-full divide-y divide-gray-200 dark:divide-gray-700">
           {
             member.map((v, i) => {
               return (
@@ -109,10 +109,9 @@ const TableMemberList: React.FC<MemberList> = ({ member, onChange, onClick }) =>
                     </div>
                   </td>
                   <td className="size-px whitespace-nowrap">
-                    <div className="px-6 py-1.5">
-                      <a onClick={() => onClick(v)} className="inline-flex items-center gap-x-1 text-sm text-blue-600 decoration-2 hover:underline font-medium dark:text-blue-500 cursor-pointer">
-                        Edit
-                      </a>
+                    <div className="flex justify-between pe-6 py-1.5">
+                      <Button text='Edit' color='cyan' onClick={() => onEdit(v)} />
+                      <Button text='Delete' mg="ml-1" onClick={() => onDelete(v)} />
                     </div>
                   </td>
                 </tr>
@@ -123,6 +122,6 @@ const TableMemberList: React.FC<MemberList> = ({ member, onChange, onClick }) =>
       </table>
     </div>
   )
-}
+})
 
 export default TableMemberList

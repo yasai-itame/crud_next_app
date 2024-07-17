@@ -1,5 +1,5 @@
-import { NextResponse, NextRequest } from "next/server"
-const { PrismaClient } = require("@prisma/client")
+import { NextResponse, NextRequest } from 'next/server'
+import { PrismaClient } from '@prisma/client'
 const PORT = 8889
 
 const prisma = new PrismaClient();

@@ -1,12 +1,11 @@
 'use client'
-import ContentsBlock from '@/app/components/ContentsBlock'
-
+import React, { useState, useCallback } from 'react';
+import ContentsBlock from '@/app/components/ContentsBlock';
 
 const Index: React.FC = () => {
   return (
     <ContentsBlock>
       <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
-        
       <div className="text-sm leading-6">
         <figure className="relative flex flex-col-reverse bg-slate-100 rounded-lg p-6 dark:bg-slate-800 dark:highlight-white/5">
           <blockquote className="mt-6 text-slate-700 dark:text-slate-300">

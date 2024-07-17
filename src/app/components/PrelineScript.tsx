@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { usePathname } from "next/navigation";
-import { HSDropdown } from "preline/preline";
-import { useEffect } from "react";
+import { usePathname } from 'next/navigation';
+import { HSDropdown } from 'preline/preline';
+import { useEffect } from 'react';
 
 const isBrowser = typeof window !== undefined; // check if component is rendered in a browser
 
